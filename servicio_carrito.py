@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://carrito.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///carrito.db'
 db = SQLAlchemy(app)
 
 class Carrito(db.Model):
@@ -22,7 +22,7 @@ def carrito():
         db.session.add(nuevo_item)
         db.session.commit()
         return jsonify({'mensaje': 'Producto agregado al carrito'}), 201
-    if __name__== '__main__':
-        with app.app_context():
-            db.create_all()
-        app.run(port=5002)
+if __name__== '__main__':
+    with app.app_context():
+        db.create_all()
+    app.run(port=5002)
